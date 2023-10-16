@@ -22,6 +22,23 @@ def choose_word():
 #define func to update hangman ASCII art
 def update_hangman(mistakes):
     hangman_label.config(text=hangman_art[mistakes])
+    
+#define a function to check if the guess is correct
+def check_guess(guess):
+    global word_with_blanks
+    if guess in word:
+        for i in range(len(word)):
+            if word[i] == guess:
+                word_with_blanks = word_with_blanks[:i] + guess + word_with_blanks[i+1:]
+        word_label.config(text=word_with_blanks)
+        if '_' not in word_with_blanks:
+            end_game("Lose") 
+    else:
+        global mistakes 
+        mistakes += 1 
+        update_hangman(mistakes)
+        if mistakes == 6:
+            end_game("Win")    
 
 root = tk.Tk()
 root.title("Hangman")
@@ -43,6 +60,10 @@ guess_button.grid(row=2,column=1)
 #create a result label
 result_label = tk.Label(root,font=("Arial",24))
 result_label.grid(row=2,column=1)
+
+#initialize the game
+mistakes = 0
+update_hangman(mistakes)
 
 
 #start event loop
