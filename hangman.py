@@ -40,6 +40,9 @@ guess_entry.grid(row=2,column=0)
 guess_button=tk.Button(root,text="Guess",font=("Arial",12))
 guess_button.grid(row=2,column=1)
 
+#create a result label
+result_label = tk.Label(root,font=("Arial",24))
+result_label.grid(row=2,column=1)
 
 
 #start event loop
