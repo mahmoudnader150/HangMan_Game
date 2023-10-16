@@ -1,4 +1,4 @@
-import tkinter
+import tkinter as tk
 import random
 
 #define list of random words
@@ -16,10 +16,27 @@ hangman_art = [
 ]
 
 #define function to choose random word from a list
-def choose_word();
+def choose_word():
     return random.choice(words)
 
 #define func to update hangman ASCII art
 def update_hangman(mistakes):
     hangman_label.config(text=hangman_art[mistakes])
+
+root = tk.Tk()
+root.title("Hangman")
+
+hangman_label = tk.Label(root,font=("CourierK",16))
+hangman_label.grid(row=0, column=0)
+
+word = choose_word()
+word_with_blanks = '_' * len(word)
+word_label = tk.Label(root,text=word_with_blanks,font=("Arial",24))
+word_label.grid(row=1,column=0)
+
+
+
+#start event loop
+root.mainloop()
+
       
