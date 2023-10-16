@@ -38,7 +38,17 @@ def check_guess(guess):
         mistakes += 1 
         update_hangman(mistakes)
         if mistakes == 6:
-            end_game("Win")    
+            end_game("Win")
+            
+def end_game(result):
+    if result == "Win":
+        result_text = "You Win!"
+    else:
+        result_text = "You Lose, The Word was "+word
+        result_label.config(text=result_text)
+        guess_entry.config(state="disabled")
+        guess_button.config(state="disabled")
+                            
 
 root = tk.Tk()
 root.title("Hangman")
