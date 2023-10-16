@@ -11,6 +11,8 @@ words = [
     'browser', 'website', 'protocol', 'responsive', 'design', 'responsive', 'optimization', 'performance'
 ]
 
+ 
+
 # Define the ASCII art for hangman
 hangman_art = [
     "   +---+\n   |   |\n       |\n       |\n       |\n       |\n=========",
@@ -30,6 +32,14 @@ def choose_word():
 def update_hangman(mistakes):
     hangman_label.config(text=hangman_art[mistakes])
 
+root = tk.Tk()
+root.title("Hangman")
+
+mistakes_label = tk.Label(root, text="Mistakes: 0", font=("Arial", 16))
+mistakes_label.grid(row=4, column=0)
+
+
+
 # Define a function to check if the guess is correct
 def check_guess(guess):
     global word
@@ -45,12 +55,18 @@ def check_guess(guess):
         global mistakes
         mistakes += 1
         update_hangman(mistakes)
+        update_mistakes_count()
         if mistakes == 6:
             end_game("Lose")
+    
+    # Clear the guess entry field
+    guess_entry.delete(0, "end")
 
 
-root = tk.Tk()
-root.title("Hangman")
+# Define a function to update the incorrect guesses count
+def update_mistakes_count():
+    mistakes_label.config(text=f"Mistakes: {mistakes}")
+
 # Define a function to reset the game
 def reset_game():
     global word, word_with_blanks, mistakes
@@ -59,6 +75,7 @@ def reset_game():
     word_label.config(text=word_with_blanks)
     mistakes = 0
     update_hangman(mistakes)
+    update_mistakes_count()   
     result_label.config(text="")
     guess_entry.config(state="normal")
     guess_button.config(state="normal")
@@ -104,6 +121,9 @@ result_label.grid(row=3, column=0)
 # Initialize the game
 mistakes = 0
 update_hangman(mistakes)
+
+reset_game()
+
 
 # Start event loop
 root.mainloop()
